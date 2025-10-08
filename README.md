@@ -1,4 +1,5 @@
 Cuándo usar Future, async/await, Timer e Isolate.
+
 Future
 Qué es:
 
@@ -9,7 +10,7 @@ Cuándo usarlo:
 
 Cuando la tarea no bloquea la interfaz y no consume mucho CPU, pero tarda un poco en devolver el resultado.
 
-
+-----------------------------------------------------------------------------------
 async / await
 Qué es:
 
@@ -22,7 +23,7 @@ await → pausa la ejecución hasta que el Future termine.
 Cuándo usarlo:
 
 Cuando necesitas esperar el resultado de una tarea antes de continuar.
-
+-----------------------------------------------------------------------------------
 
 Timer
 Qué es:
@@ -33,7 +34,7 @@ Cuándo usarlo:
 
 Cuando necesitas cronómetros, repeticiones o acciones temporizadas.
 
-
+-----------------------------------------------------------------------------------
 Isolate
 Qué es:
 
