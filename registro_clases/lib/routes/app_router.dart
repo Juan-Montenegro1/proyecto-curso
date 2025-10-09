@@ -8,6 +8,9 @@ import '../views/future/future_view.dart';
 import '../views/isolate/isolate_view.dart';
 import '../views/pokemons/pokemon_detail_view.dart';
 import '../views/pokemons/pokemon_list_view.dart';
+import '../views/meals/meal_list_view.dart';
+import '../views/meals/meal_detail_view.dart';
+import '../models/meal.dart';
 
 final GoRouter appRouter = GoRouter(
   routes: [
@@ -57,6 +60,27 @@ final GoRouter appRouter = GoRouter(
       path: '/pokemons',
       name: 'pokemons',
       builder: (context, state) => const PokemonListView(),
+    ),
+    //!Ruta para listaado de meals
+    GoRoute(
+      path: '/meals',
+      name: 'meals',
+      builder: (context, state) => const MealListView(),
+    ),
+    //!Ruta para detalle de meal
+    GoRoute(
+      path: '/meal/:id',
+      name: 'meal_detail',
+      builder: (context, state) {
+        final extra = state.extra;
+        if (extra is Meal) {
+          return MealDetailView(meal: extra);
+        }
+        if (extra is Map && extra['meal'] is Meal) {
+          return MealDetailView(meal: extra['meal'] as Meal);
+        }
+        throw Exception('Meal detail requires a Meal passed in extra');
+      },
     ),
     //!Ruta para detalle de pokemones
     GoRoute(
