@@ -29,14 +29,17 @@ class _MealListViewState extends State<MealListView> {
       _isLoading = true;
       _error = null;
     });
+    print('MealListView: iniciando búsqueda para "${_searchCtrl.text.trim()}"');
     try {
       final results = await _service.searchMeals(query: _searchCtrl.text.trim());
+      print('MealListView: resultados obtenidos: ${results.length}');
       if (!mounted) return;
       setState(() {
         _meals = results;
         _isLoading = false;
       });
     } catch (e) {
+      print('MealListView: excepción en búsqueda: $e');
       if (!mounted) return;
       setState(() {
         _error = e.toString();
