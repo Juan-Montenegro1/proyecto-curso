@@ -11,22 +11,31 @@ class MealService {
   // Search meals by name. Throws on non-200 or network/timeouts.
   Future<List<Meal>> searchMeals({String query = 'a'}) async {
     final url = Uri.parse('$_base/search.php?s=$query');
+    print('MealService: iniciando búsqueda para query="$query" -> $url');
     try {
       final resp = await http.get(url).timeout(const Duration(seconds: 8));
+      print('MealService: respuesta recibida (status ${resp.statusCode})');
       if (resp.statusCode != 200) {
         throw HttpException('Error fetching meals: ${resp.statusCode}');
       }
       final Map<String, dynamic> data = json.decode(resp.body);
       final mealsList = data['meals'];
+      print('MealService: parseando respuesta JSON');
       if (mealsList == null) return [];
-      return (mealsList as List).map((e) => Meal.fromJson(e as Map<String, dynamic>)).toList();
+  final list = mealsList as List;
+  print('MealService: encontrados ${list.length} resultados');
+  return list.map((e) => Meal.fromJson(e as Map<String, dynamic>)).toList();
     } on TimeoutException {
+      print('MealService: TimeoutException');
       throw Exception('La petición tardó demasiado. Intenta nuevamente.');
     } on SocketException catch (e) {
+      print('MealService: SocketException: ${e.message}');
       throw Exception('Problema de red: ${e.message}');
     } on HttpException catch (e) {
+      print('MealService: HttpException: ${e.message}');
       throw Exception(e.message);
     } on FormatException {
+      print('MealService: FormatException al parsear JSON');
       throw Exception('Respuesta inválida del servidor');
     }
   }
