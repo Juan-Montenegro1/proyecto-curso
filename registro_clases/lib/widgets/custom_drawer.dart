@@ -102,6 +102,15 @@ class CustomDrawer extends StatelessWidget {
               context.go('/pokemons');
             },
           ),
+          //!MEALS - TheMealDB
+          ListTile(
+            leading: const Icon(Icons.restaurant_menu),
+            title: const Text('Meals'),
+            onTap: () {
+              context.go('/meals');
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );
