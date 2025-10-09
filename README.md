@@ -59,29 +59,48 @@ TALLER HTTP
 API usada
 ------------------------------------------------------------
 API: TheMealDB (gratuita, pública).
+
 Endpoint principal usado en la demo (búsqueda por nombre):
 GET https://www.themealdb.com/api/json/v1/1/search.php?s={query}
 Ejemplo: https://www.themealdb.com/api/json/v1/1/search.php?s=a
+
 Endpoint útil para detalle por id:
 GET https://www.themealdb.com/api/json/v1/1/lookup.php?i={id}
 Ejemplo (fragmento reducido de la respuesta JSON de search.php?s=a):
+
 {
+
   "meals": [
+  
     {
+    
       "idMeal": "52771",
+      
       "strMeal": "Spicy Arrabiata Penne",
+      
       "strCategory": "Vegetarian",
+      
       "strArea": "Italian",
+      
       "strInstructions": "Bring a large pot of water to a boil...",
+      
       "strMealThumb": "https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg",
+      
       "...": "..."
+      
     },
+    
     {
       "idMeal": "52772",
+      
       "strMeal": "Teriyaki Chicken",
+      
       "...": "..."
+      
     }
+    
   ]
+  
 }
 
 Arquitectura del proyecto
@@ -89,17 +108,29 @@ Arquitectura del proyecto
 Estructura relevante:
 
 lib/models/
+
 meal.dart — modelo Meal con Meal.fromJson(...).
+
 lib/services/
+
 meal_service.dart — lógica HTTP (GET) hacia TheMealDB, con timeout y manejo de excepciones.
+
 lib/views/
+
 meal_list_view.dart — pantalla listado (búsqueda, estados: cargando/éxito/error, ListView)
+
 meals/meal_detail_view.dart — pantalla detalle (imagen + texto)
+
 Otras vistas ya existentes: /future, /isolate, /pokemons, etc
+
 lib/widgets/
+
 base_view.dart — scaffold 
+
 custom_drawer.dart — Drawer para navegación
+
 lib/routes/
+
 app_router.dart — definición de rutas con go_router.
 
 
@@ -109,36 +140,51 @@ Las rutas importantes en app_router.dart:
 
 
 Builder: HomeScreen()
+
 Parámetros: ninguno.
+
 /paso_parametros
 
 Builder: PasoParametrosScreen().
+
 /detalle/:parametro/:metodo
 
 Builder: DetalleScreen(parametro, metodoNavegacion)
+
 Parámetros de ruta: parametro y metodo (path params).
+
 /ciclo_vida
 
 Builder: CicloVidaScreen().
+
 /future (name: future)
 
 Builder: FutureView().
+
 /isolate (name: isolate)
 
 Builder: IsolateView().
+
 /pokemons (name: pokemons)
 
 Builder: PokemonListView().
+
 /pokemon/:name (name: pokemon_detail)
 
 Builder: PokemonDetailView(name)
+
 Path param: name.
+
 /meals (name: meals)
 
 Builder: MealListView()
+
 Comportamiento: pantalla de listado / búsqueda. No path params.
+
 /meal/:id (name: meal_detail)
 
 Builder: MealDetailView(meal: ...)
+
 Path param: id (se incluye en la URL para trazabilidad)
+
 Nota: para deep links sería buena práctica usar lookup.php?i={id} en MealDetailView si extra no está presente.
