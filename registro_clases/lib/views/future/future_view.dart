@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 
 import '../../widgets/base_view.dart';
@@ -40,7 +41,7 @@ class _FutureViewState extends State<FutureView> {
     super.dispose();
   }
   Future<void> obtenerDatos() async {
-    print('UI: antes de llamar al servicio (before await)');
+  if (foundation.kDebugMode) foundation.debugPrint('UI: antes de llamar al servicio (before await)');
 
     setState(() {
       _isLoading = true;
@@ -52,7 +53,7 @@ class _FutureViewState extends State<FutureView> {
   // Llamada async al servicio simulado
   final datos = await _service.fetchNames(throwError: _simulateError);
 
-      print('UI: después de await (after await) - datos recibidos: ${datos.length}');
+  if (foundation.kDebugMode) foundation.debugPrint('UI: después de await (after await) - datos recibidos: ${datos.length}');
 
       if (!mounted) return;
       setState(() {
@@ -61,7 +62,7 @@ class _FutureViewState extends State<FutureView> {
         _statusMessage = 'Éxito - ${datos.length} elementos recibidos';
       });
     } catch (e) {
-      print('UI: captura de error después de await: $e');
+  if (foundation.kDebugMode) foundation.debugPrint('UI: captura de error después de await: $e');
       if (!mounted) return;
       setState(() {
         _isLoading = false;
@@ -69,13 +70,13 @@ class _FutureViewState extends State<FutureView> {
         _statusMessage = 'Error al cargar datos';
       });
     } finally {
-      print('UI: finally - la llamada ha finalizado');
+  if (foundation.kDebugMode) foundation.debugPrint('UI: finally - la llamada ha finalizado');
     }
   }
 
   void _startTimer() {
-    if (_isRunning) return;
-    print('Timer: iniciar');
+  if (_isRunning) return;
+  if (foundation.kDebugMode) foundation.debugPrint('Timer: iniciar');
     _timer = Timer.periodic(_tick, (t) {
       setState(() {
         _elapsed += _tick;
@@ -87,8 +88,8 @@ class _FutureViewState extends State<FutureView> {
   }
 
   void _pauseTimer() {
-    if (!_isRunning) return;
-    print('Timer: pausar');
+  if (!_isRunning) return;
+  if (foundation.kDebugMode) foundation.debugPrint('Timer: pausar');
     _cancelTimer();
     setState(() {
       _isRunning = false;
@@ -96,13 +97,13 @@ class _FutureViewState extends State<FutureView> {
   }
 
   void _resumeTimer() {
-    if (_isRunning) return;
-    print('Timer: reanudar');
+  if (_isRunning) return;
+  if (foundation.kDebugMode) foundation.debugPrint('Timer: reanudar');
     _startTimer();
   }
 
   void _resetTimer() {
-    print('Timer: reiniciar');
+  if (foundation.kDebugMode) foundation.debugPrint('Timer: reiniciar');
     _cancelTimer();
     setState(() {
       _elapsed = Duration.zero;

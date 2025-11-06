@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 import '../models/meal.dart';
 
 class MealService {
@@ -11,31 +12,33 @@ class MealService {
   // Search meals by name. Throws on non-200 or network/timeouts.
   Future<List<Meal>> searchMeals({String query = 'a'}) async {
     final url = Uri.parse('$_base/search.php?s=$query');
-    print('MealService: iniciando búsqueda para query="$query" -> $url');
+    if (kDebugMode) {
+      debugPrint('MealService: iniciando búsqueda para query="$query" -> $url');
+    }
     try {
       final resp = await http.get(url).timeout(const Duration(seconds: 8));
-      print('MealService: respuesta recibida (status ${resp.statusCode})');
+      if (kDebugMode) debugPrint('MealService: respuesta recibida (status ${resp.statusCode})');
       if (resp.statusCode != 200) {
         throw HttpException('Error fetching meals: ${resp.statusCode}');
       }
       final Map<String, dynamic> data = json.decode(resp.body);
       final mealsList = data['meals'];
-      print('MealService: parseando respuesta JSON');
+      if (kDebugMode) debugPrint('MealService: parseando respuesta JSON');
       if (mealsList == null) return [];
   final list = mealsList as List;
-  print('MealService: encontrados ${list.length} resultados');
+  if (kDebugMode) debugPrint('MealService: encontrados ${list.length} resultados');
   return list.map((e) => Meal.fromJson(e as Map<String, dynamic>)).toList();
     } on TimeoutException {
-      print('MealService: TimeoutException');
+      if (kDebugMode) debugPrint('MealService: TimeoutException');
       throw Exception('La petición tardó demasiado. Intenta nuevamente.');
     } on SocketException catch (e) {
-      print('MealService: SocketException: ${e.message}');
+      if (kDebugMode) debugPrint('MealService: SocketException: ${e.message}');
       throw Exception('Problema de red: ${e.message}');
     } on HttpException catch (e) {
-      print('MealService: HttpException: ${e.message}');
+      if (kDebugMode) debugPrint('MealService: HttpException: ${e.message}');
       throw Exception(e.message);
     } on FormatException {
-      print('MealService: FormatException al parsear JSON');
+      if (kDebugMode) debugPrint('MealService: FormatException al parsear JSON');
       throw Exception('Respuesta inválida del servidor');
     }
   }
