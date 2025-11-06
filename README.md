@@ -188,3 +188,52 @@ Builder: MealDetailView(meal: ...)
 Path param: id (se incluye en la URL para trazabilidad)
 
 Nota: para deep links sería buena práctica usar lookup.php?i={id} en MealDetailView si extra no está presente.
+
+------------------------
+TALLER 1 MODULO 3
+
+#  Registro de Clases – Distribución y Publicación (Firebase App Distribution)
+
+## Flujo General de Publicación
+
+**Flujo:**  
+**Generar APK → App Distribution → Testers → Instalación → Actualización**
+
+1. **Generar APK**
+   - Desde la raíz del proyecto, ejecutar:
+     ```bash
+     flutter build apk --release
+     ```
+   - El archivo generado se encuentra en:
+     ```
+     build/app/outputs/flutter-apk/app-release.apk
+     ```
+
+2. **App Distribution (Firebase)**
+   - Ingresar a [Firebase Console](https://console.firebase.google.com/)
+   - Seleccionar el proyecto **registro-clases-dev**
+   - Ir a **App Distribution**
+   - Subir el archivo `app-release.apk`
+
+3. **Testers**
+   - En la sección **Verificadores y grupos**, crear o seleccionar el grupo:
+     ```
+     QA_Clase
+     ```
+   - Agregar testers (ejemplo):
+     ```
+     dduran@uceva.edu.co
+     ```
+
+4. **Instalación**
+   - Una vez distribuido el release, los testers reciben un correo con un **enlace de instalación**.
+   - Deben permitir la instalación desde fuentes externas y abrir el enlace desde el navegador del dispositivo Android.
+
+5. **Actualización**
+   - Cada vez que se genera una nueva versión (`app-release.apk`) y se distribuye en Firebase, los testers reciben automáticamente la notificación de actualización.
+   - No es necesario desinstalar la versión anterior.
+
+---
+
+
+
