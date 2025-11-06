@@ -21,7 +21,7 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
   void initState() {
     super.initState();
     if (kDebugMode) {
-      print("🟢 initState() -> La pantalla se ha inicializado");
+      debugPrint("🟢 initState() -> La pantalla se ha inicializado");
     }
   }
 
@@ -32,7 +32,7 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
     super.didChangeDependencies();
 
     if (kDebugMode) {
-      print("🟡 didChangeDependencies() -> Tema actual");
+      debugPrint("🟡 didChangeDependencies() -> Tema actual");
     }
   }
 
@@ -40,7 +40,7 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
   @override
   Widget build(BuildContext context) {
     if (kDebugMode) {
-      print("🔵 build() -> Construyendo la pantalla");
+      debugPrint("🔵 build() -> Construyendo la pantalla");
     }
 
     return BaseView(
@@ -66,7 +66,7 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
     setState(() {
       texto = "Texto actualizado 🟠";
       if (kDebugMode) {
-        print("🟠 setState() -> Estado actualizado");
+        debugPrint("🟠 setState() -> Estado actualizado");
       }
     });
   }
@@ -75,7 +75,7 @@ class CicloVidaScreenState extends State<CicloVidaScreen> {
   @override
   void dispose() {
     if (kDebugMode) {
-      print("🔴 dispose() -> La pantalla se ha destruido");
+      debugPrint("🔴 dispose() -> La pantalla se ha destruido");
     }
     super.dispose();
   }

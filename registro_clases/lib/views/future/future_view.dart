@@ -40,7 +40,7 @@ class _FutureViewState extends State<FutureView> {
     super.dispose();
   }
   Future<void> obtenerDatos() async {
-    print('UI: antes de llamar al servicio (before await)');
+    debugPrint('UI: antes de llamar al servicio (before await)');
 
     setState(() {
       _isLoading = true;
@@ -52,7 +52,7 @@ class _FutureViewState extends State<FutureView> {
   // Llamada async al servicio simulado
   final datos = await _service.fetchNames(throwError: _simulateError);
 
-      print('UI: después de await (after await) - datos recibidos: ${datos.length}');
+  debugPrint('UI: después de await (after await) - datos recibidos: ${datos.length}');
 
       if (!mounted) return;
       setState(() {
@@ -61,7 +61,7 @@ class _FutureViewState extends State<FutureView> {
         _statusMessage = 'Éxito - ${datos.length} elementos recibidos';
       });
     } catch (e) {
-      print('UI: captura de error después de await: $e');
+      debugPrint('UI: captura de error después de await: $e');
       if (!mounted) return;
       setState(() {
         _isLoading = false;
@@ -69,13 +69,13 @@ class _FutureViewState extends State<FutureView> {
         _statusMessage = 'Error al cargar datos';
       });
     } finally {
-      print('UI: finally - la llamada ha finalizado');
+      debugPrint('UI: finally - la llamada ha finalizado');
     }
   }
 
   void _startTimer() {
     if (_isRunning) return;
-    print('Timer: iniciar');
+    debugPrint('Timer: iniciar');
     _timer = Timer.periodic(_tick, (t) {
       setState(() {
         _elapsed += _tick;
@@ -88,7 +88,7 @@ class _FutureViewState extends State<FutureView> {
 
   void _pauseTimer() {
     if (!_isRunning) return;
-    print('Timer: pausar');
+    debugPrint('Timer: pausar');
     _cancelTimer();
     setState(() {
       _isRunning = false;
@@ -97,12 +97,12 @@ class _FutureViewState extends State<FutureView> {
 
   void _resumeTimer() {
     if (_isRunning) return;
-    print('Timer: reanudar');
+    debugPrint('Timer: reanudar');
     _startTimer();
   }
 
   void _resetTimer() {
-    print('Timer: reiniciar');
+    debugPrint('Timer: reiniciar');
     _cancelTimer();
     setState(() {
       _elapsed = Duration.zero;
