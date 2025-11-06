@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "760779874111",
+    "project_id": "registro-clases-dev",
+    "storage_bucket": "registro-clases-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760779874111:android:497709fd7508b73a8b3d8a",
+        "android_client_info": {
+          "package_name": "com.example.registro_clases"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCO6Zx0a8JktexvUR91lcu6sf4z0zcs0uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
