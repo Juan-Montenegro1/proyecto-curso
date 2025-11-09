@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:registro_clases/views/categoria_fb/categoria_fb_form_view.dart';
+import 'package:registro_clases/views/categoria_fb/categoria_fb_list_view.dart';
 import 'package:registro_clases/views/ciclo_vida/ciclo_vida_screen.dart';
 import 'package:registro_clases/views/home/home_screen.dart';
 import 'package:registro_clases/views/paso_parametros/detalle_screen.dart';
@@ -92,5 +94,24 @@ final GoRouter appRouter = GoRouter(
         return PokemonDetailView(name: name);
       },
     ),
+   //! Rutas para el manejo de Categorías (CRUD)  
+    GoRoute( 
+      path: '/categoriasFirebase', 
+      name: 'categoriasFirebase', 
+      builder: (_, __) => const CategoriaFbListView(), 
+    ), 
+    GoRoute( 
+      path: '/categoriasfb/create', 
+      name: 'categoriasfb.create', 
+      builder: (context, state) => const CategoriaFbFormView(), 
+    ), 
+    GoRoute( 
+      path: '/categoriasfb/edit/:id', 
+      name: 'categorias.edit', 
+      builder: (context, state) { 
+        final id = state.pathParameters['id']!; 
+        return CategoriaFbFormView(id: id); 
+      }, 
+    ), 
   ],
 );
