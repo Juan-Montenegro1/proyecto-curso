@@ -111,6 +111,12 @@ class CustomDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.cloud),
+            // Mostrar el nuevo título en mayúsculas según solicitud
+            title: const Text('UNIVERSIDADES'),
+            onTap: () => context.pushNamed('categoriasFirebase'),
+          ),
         ],
       ),
     );
